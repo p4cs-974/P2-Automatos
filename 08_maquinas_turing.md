@@ -53,8 +53,37 @@ Máquinas de Turing são modelos matemáticos de computação capazes de reconhe
 ## 4. Exercícios de Fixação
 
 1. Descreva a configuração de uma máquina de Turing para a palavra "aabb".
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Exemplo: MT para {a^n b^n | n ≥ 1}
+- Configuração inicial: fita = "aabb", cabeçote no primeiro símbolo, estado inicial q0.
+- A MT marca o primeiro 'a', procura o primeiro 'b', marca, volta ao início, repete até não restar 'a' ou 'b'.
+
+---
+
 2. Construa uma máquina de Turing para inverter uma palavra.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Estratégia: use símbolos auxiliares para marcar o início e o fim, trocando os extremos até inverter toda a palavra.
+- Exemplo de passos:
+  1. Marque o primeiro símbolo, vá até o fim, troque com o último, volte ao início, repita.
+
+---
+
 3. Explique a diferença entre problemas decidíveis e indecidíveis.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Problemas **decidíveis**: existe uma máquina de Turing que sempre para e responde sim ou não para toda entrada (ex: verificar se uma palavra pertence a uma linguagem regular).
+- Problemas **indecidíveis**: não existe máquina de Turing que resolva o problema para toda entrada (ex: problema da parada).
 
 ---
 

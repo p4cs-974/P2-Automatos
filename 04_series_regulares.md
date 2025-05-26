@@ -59,8 +59,65 @@ As séries regulares são subconjuntos de linguagens regulares com propriedades 
 ## 4. Exercícios de Fixação
 
 1. Dada a série das palavras que contêm exatamente dois 'a's, liste 2 palavras que pertencem e 2 que não pertencem.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- A série é composta por todas as palavras sobre {a, b} que contêm exatamente dois 'a's (ou seja, qualquer quantidade de 'b', mas apenas dois 'a').
+- Exemplos que **pertencem**:
+  - "aba" (tem dois 'a's e um 'b')
+  - "baa" (tem dois 'a's e um 'b')
+- Exemplos que **não pertencem**:
+  - "abbb" (tem apenas um 'a', não pertence)
+  - "aaa" (tem três 'a's, não pertence)
+
+---
+
 2. Construa um autômato para a série das palavras que terminam com 'b'.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Alfabeto: {a, b}
+- Precisamos de um autômato que aceite qualquer palavra que termine com 'b'.
+
+**Construção:**
+
+- Estados: q0 (inicial), q1 (final)
+- Transições:
+  - q0 --a--> q0 (lendo 'a', permanece em q0)
+  - q0 --b--> q1 (lendo 'b', vai para q1)
+  - q1 --a--> q0 (se depois de um 'b' vier um 'a', volta para q0)
+  - q1 --b--> q1 (se vier outro 'b', permanece em q1)
+- Estado inicial: q0
+- Estado final: q1
+
+**Tabela de transição:**
+
+| Estado | a   | b   |
+| ------ | --- | --- |
+| q0     | q0  | q1  |
+| q1     | q0  | q1  |
+
+**Explicação:**
+O autômato aceita qualquer palavra que termine com 'b', pois só estará em q1 ao final se o último símbolo for 'b'.
+
+---
+
 3. Explique por que toda série regular é uma linguagem regular.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Por definição, uma série regular é um subconjunto de uma linguagem regular que pode ser descrito por uma expressão regular ou reconhecido por um autômato finito.
+- Toda série regular pode ser reconhecida por um autômato finito, pois é construída a partir de operações regulares (união, concatenação, estrela de Kleene, etc).
+- Portanto, toda série regular é, por definição, uma linguagem regular.
+
+**Resposta:**
+Toda série regular é uma linguagem regular porque pode ser descrita por uma expressão regular ou reconhecida por um autômato finito, ou seja, satisfaz exatamente a definição de linguagem regular.
 
 ---
 

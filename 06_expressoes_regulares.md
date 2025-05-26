@@ -53,8 +53,46 @@ A relação entre autômatos e expressões regulares é fundamental: toda lingua
 ## 4. Exercícios de Fixação
 
 1. Construa um AFN para a expressão regular (ab|ba)\*.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- A expressão (ab|ba)\* aceita qualquer número de repetições de "ab" ou "ba".
+- Estados: q0 (inicial e final), q1, q2
+- Transições:
+  - q0 --a--> q1
+  - q1 --b--> q0 (para "ab")
+  - q0 --b--> q2
+  - q2 --a--> q0 (para "ba")
+
+**Explicação:** O autômato volta ao estado inicial a cada "ab" ou "ba" lido.
+
+---
+
 2. Dado um AFD, derive a expressão regular correspondente.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Exemplo: AFD para (01)\* (palavras formadas por repetições de "01").
+- Estados: q0 (inicial e final), q1
+- δ(q0, 0) → q1
+- δ(q1, 1) → q0
+
+**Expressão regular:** (01)\*
+
+---
+
 3. Explique por que toda linguagem reconhecida por um AFD é regular.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Por definição, uma linguagem é regular se pode ser reconhecida por um autômato finito determinístico (AFD).
+- Portanto, toda linguagem reconhecida por um AFD é regular.
 
 ---
 

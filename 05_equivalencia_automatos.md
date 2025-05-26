@@ -54,8 +54,73 @@ A equivalência de autômatos é o estudo de quando dois autômatos reconhecem a
 ## 4. Exercícios de Fixação
 
 1. Dê um exemplo de dois autômatos não equivalentes.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- AFD1: reconhece palavras sobre {a, b} com número par de 'a'.
+- AFD2: reconhece palavras sobre {a, b} que terminam com 'a'.
+
+Exemplo:
+
+- Palavra "ba":
+  - AFD1: "ba" tem 1 'a' (ímpar) → rejeita.
+  - AFD2: termina com 'a' → aceita.
+- Portanto, AFD1 e AFD2 não são equivalentes.
+
+---
+
 2. Minimize um AFD e verifique se ele é equivalente ao original.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Considere o AFD para palavras sobre {0,1} que terminam com "01":
+
+Estados: q0 (inicial), q1, q2 (final)
+
+- δ(q0, 0) → q1
+- δ(q0, 1) → q0
+- δ(q1, 0) → q1
+- δ(q1, 1) → q2
+- δ(q2, 0) → q1
+- δ(q2, 1) → q0
+
+Esse AFD já está minimizado, pois todos os estados têm comportamento distinto para o sufixo "01".
+**Verificação:** Teste palavras como "01", "1001", "0001" e veja que o comportamento é igual no original e no minimizado.
+
+---
+
 3. Converta um AFN simples em AFD e compare as linguagens reconhecidas.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- AFN: reconhece palavras sobre {a, b} que contêm "ab" como subpalavra.
+- Estados: q0 (inicial), q1, q2 (final)
+  - δ(q0, a) → {q0, q1}
+  - δ(q0, b) → {q0}
+  - δ(q1, b) → {q2}
+  - δ(q2, a) → {q2}
+  - δ(q2, b) → {q2}
+
+**Construção do AFD (por subconjuntos):**
+
+- Estados do AFD: subconjuntos dos estados do AFN.
+- Estado inicial: {q0}
+- Transições:
+  - {q0} --a--> {q0, q1}
+  - {q0} --b--> {q0}
+  - {q0, q1} --a--> {q0, q1}
+  - {q0, q1} --b--> {q0, q2}
+  - {q0, q2} --a--> {q0, q1, q2}
+  - {q0, q2} --b--> {q0, q2}
+  - etc.
+
+**Conclusão:** O AFD reconhece a mesma linguagem do AFN, pois todo caminho aceito no AFN é simulado no AFD.
 
 ---
 

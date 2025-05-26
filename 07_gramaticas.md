@@ -53,8 +53,44 @@ Gramáticas formais são sistemas de regras para gerar linguagens. Elas permitem
 ## 4. Exercícios de Fixação
 
 1. Classifique as gramáticas abaixo quanto ao tipo.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Exemplo 1: S → aSb | ε
+  - É uma gramática livre de contexto (GLC), pois a produção tem uma variável à esquerda.
+- Exemplo 2: S → aS | bS | ε
+  - Também é GLC.
+- Exemplo 3: S → aA, A → b
+  - É regular, pois as produções têm uma variável à esquerda e no máximo uma variável à direita.
+
+---
+
 2. Derive a cadeia "aaabbb" em uma gramática para (a^n b^n).
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Gramática: S → aSb | ε
+- Derivação:
+  - S ⇒ aSb
+  - ⇒ aaSbb
+  - ⇒ aaaSbbb
+  - ⇒ aaabbb
+
+---
+
 3. Construa um AP para a linguagem de palíndromos.
+
+<!-- RESOLUÇÃO E EXPLICAÇÃO DIDÁTICA -->
+
+**Resolução:**
+
+- Alfabeto: {a, b}
+- Estratégia: empilhar símbolos da primeira metade, desempilhar e comparar na segunda metade.
+- O AP aceita se, ao final, a pilha estiver vazia e todos os símbolos corresponderem.
 
 ---
 
