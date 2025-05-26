@@ -35,7 +35,7 @@ Seja L1 = {palavras com número par de 'a'} e L2 = {palavras que terminam com 'b
 - "aab" (número par de 'a' e termina com 'b') ∈ L1 ∪ L2
 - "ab" (número ímpar de 'a', mas termina com 'b') ∈ L1 ∪ L2
 - "aa" (número par de 'a', não termina com 'b') ∈ L1 ∪ L2
-- "aba" (número ímpar de 'a', não termina com 'b') ∉ L1 ∪ L2
+- "aba" (número par de 'a', não termina com 'b') ∈ L1 ∪ L2
 
 ### 2.2 Interseção
 
@@ -59,6 +59,8 @@ Se L = {palavras que contêm pelo menos um 'a'}, então L̅ = {palavras que **n�
 ### 2.4 Diferença
 
 L1 - L2 = {palavras com número par de 'a' **e** que **não** terminam com 'b'}
+
+> obs: a ordem dos conjuntos é importante, L1 - L2 != L2 - L1
 
 **Exemplo:**
 
@@ -87,11 +89,95 @@ Se L = {ab, ba}, então L^R = {ba, ab}
    - L2 = {palavras que terminam com 'b'}
    - Liste 2 palavras que pertencem a L1 ∪ L2 e 2 que pertencem a L1 ∩ L2.
 
+```
+L1 ∪ L2 = {palavras que começam com 'a' ou terminam com 'b'}
+L1 ∩ L2 = {palavras que começam com 'a' e terminam com 'b'}
+
+Palavras que pertencem a L1 ∪ L2:
+- "aabab" (começa com 'a')
+- "bbbab" (termina com 'b')
+
+Palavras que não pertencem a L1 ∪ L2:
+- "bba" (não começa com 'a' nem termina com 'b')
+- "ba" (não começa com 'a' nem termina com 'b')
+
+Palavras que pertencem a L1 ∩ L2:
+- "aab" (começa com 'a' e termina com 'b')
+- "abab" (começa com 'a' e termina com 'b')
+
+Palavras que não pertencem a L1 ∩ L2:
+- "bba" (não começa com 'a')
+- "aaa" (não termina com 'b')
+```
+
+**Explicação:**
+
+- Para L1 ∪ L2, basta que a palavra comece com 'a' ou termine com 'b'.
+- Para L1 ∩ L2, a palavra deve começar com 'a' **e** terminar com 'b'.
+- Os exemplos acima ilustram corretamente cada caso.
+
 2. Dado um AFD para L, descreva como construir o AFD para o complemento de L.
+
+```
+Passo a passo para construir o complemento de um AFD:
+1. Certifique-se de que o AFD é completo (todas as transições estão definidas para cada símbolo em cada estado). Se não estiver, adicione um estado de erro e complete as transições.
+2. Inverta o conjunto de estados finais: os estados que eram finais deixam de ser, e os que não eram finais passam a ser finais.
+3. O autômato resultante reconhece o complemento da linguagem original.
+
+Exemplo:
+Se o AFD original tem estados finais F, o complemento terá como estados finais Q \ F (todos os estados que não estão em F).
+```
 
 3. Construa um AFN para a concatenação das linguagens L1 = {a, aa} e L2 = {b, bb}.
 
+```
+Passo a passo:
+- L1 = {a, aa}
+- L2 = {b, bb}
+- L1L2 = {ab, abb, aab, aabb}
+
+Construção do AFN:
+- Estados: q0 (inicial), q1, q2, q3 (finais)
+- Transições:
+  - q0 --a--> q1
+  - q0 --a--> q2 (para aceitar 'aa')
+  - q1 --b--> q3 (aceita 'ab')
+  - q1 --b--> q3 (aceita 'abb' via transição epsilon para q2)
+  - q2 --a--> q1 (para formar 'aa')
+  - q2 --b--> q3 (aceita 'aab')
+  - q2 --b--> q3 (aceita 'aabb')
+
+AFN simplificado:
+- q0 --a--> q1 (para 'a')
+- q0 --a--> q2 (para 'aa')
+- q1 --b--> q3 (para 'ab')
+- q1 --b--> q3 (para 'abb' via q2)
+- q2 --b--> q3 (para 'aab')
+- q2 --b--> q3 (para 'aabb')
+- q3 é final
+
+Exemplo de aceitação:
+- "ab": q0 --a--> q1 --b--> q3
+- "abb": q0 --a--> q1 --b--> q3 (q3 aceita mais um 'b' se for necessário)
+- "aab": q0 --a--> q2 --b--> q3
+- "aabb": q0 --a--> q2 --b--> q3 (q3 aceita mais um 'b' se for necessário)
+
+Obs: Como as linguagens são finitas, o AFN pode ser construído explicitamente para cada palavra. Além disso, vale notar que o estado q0 não deve aceitar "b".
+```
+
 4. Dado um AFN para L, explique como construir o AFN para L\*.
+
+```
+Passo a passo para construir o AFN para L*:
+1. Crie um novo estado inicial q_new, que também será estado final.
+2. Adicione uma transição epsilon de q_new para o estado inicial do AFN original.
+3. Para cada estado final do AFN original, adicione uma transição epsilon de volta para o estado inicial do AFN original.
+4. O novo autômato aceita qualquer número de repetições (inclusive zero) de palavras de L.
+
+Exemplo:
+- Se o AFN original reconhece L, o novo AFN reconhece L\*.
+- A palavra vazia é aceita diretamente em q_new.
+```
 
 ---
 
@@ -99,10 +185,10 @@ Se L = {ab, ba}, então L^R = {ba, ab}
 
 ### Checklist de Competências
 
-- [ ] Entendo o conceito de operações sobre linguagens
-- [ ] Sei construir autômatos para união, interseção e complemento
-- [ ] Consigo construir autômatos para concatenação e fechamento de Kleene
-- [ ] Sei aplicar operações em exemplos práticos
+- [x] Entendo o conceito de operações sobre linguagens
+- [x] Sei construir autômatos para união, interseção e complemento
+- [x] Consigo construir autômatos para concatenação e fechamento de Kleene
+- [x] Sei aplicar operações em exemplos práticos
 
 ### Exercícios de Fixação
 
@@ -120,76 +206,9 @@ Se L = {ab, ba}, então L^R = {ba, ab}
 - Hopcroft, J. E., Motwani, R., & Ullman, J. D. (2006). Introduction to Automata Theory, Languages, and Computation
 - Sipser, M. (2012). Introduction to the Theory of Computation
 
-## Roadmap de Estudos: Operações com Autômatos
-
-Este roteiro vai te guiar no estudo das principais operações com autômatos finitos (AFD e AFN), fundamentais para manipular linguagens regulares e resolver problemas clássicos de teoria da computação.
-
-### Semana 1: Revisão e Conceitos Básicos
-
-- **Meta:** Relembrar definições de AFD e AFN, e entender o conceito de operação sobre linguagens.
-- **Conteúdo:**
-  - O que são operações sobre linguagens? (união, interseção, complemento, diferença, reversão, concatenação, estrela de Kleene)
-  - Por que estudar operações com autômatos?
-- **Exemplo:**
-  - Dê exemplos simples de união e interseção de conjuntos de palavras.
-- **Exercício sugerido:**
-  - Liste 3 exemplos de união e 3 de interseção de linguagens sobre {a, b}.
-
-### Semana 2: União e Interseção de Autômatos
-
-- **Meta:** Aprender a construir autômatos que reconhecem a união e a interseção de duas linguagens regulares.
-- **Conteúdo:**
-  - Produto cartesiano de autômatos (construção do produto)
-  - União de AFDs: construção do autômato para L1 ∪ L2
-  - Interseção de AFDs: construção do autômato para L1 ∩ L2
-- **Exemplo:**
-  - Dado dois AFDs, construa o produto para a união e para a interseção.
-- **Exercício sugerido:**
-  - Construa o AFD para a união e para a interseção das linguagens: L1 = palavras com número par de 'a', L2 = palavras que terminam com 'b'.
-
-### Semana 3: Complemento e Diferença
-
-- **Meta:** Entender como construir o complemento e a diferença de linguagens regulares usando autômatos.
-- **Conteúdo:**
-  - Complemento de um AFD (troca dos estados finais)
-  - Diferença de linguagens: L1 - L2 = L1 ∩ (complemento de L2)
-- **Exemplo:**
-  - Mostre como obter o complemento de um AFD.
-- **Exercício sugerido:**
-  - Dado um AFD para L, construa o AFD para o complemento de L.
-  - Construa o AFD para L1 - L2, usando os AFDs das semanas anteriores.
-
-### Semana 4: Concatenação e Fechamento de Kleene
-
-- **Meta:** Aprender a construir autômatos para a concatenação e o fechamento de Kleene de linguagens regulares.
-- **Conteúdo:**
-  - Concatenação de autômatos (usando AFN e transições epsilon)
-  - Fechamento de Kleene (L\*)
-- **Exemplo:**
-  - Construa um AFN para a concatenação de L1 e L2.
-  - Construa um AFN para L\*.
-- **Exercício sugerido:**
-  - Dado um AFN para L, construa o AFN para L\*.
-  - Construa o AFN para a concatenação de duas linguagens simples.
-
-### Semana 5: Reversão de Linguagens e Operações Avançadas
-
-- **Meta:** Explorar a reversão de linguagens e outras operações menos comuns.
-- **Conteúdo:**
-  - Reversão de uma linguagem regular (como construir um autômato para L^R)
-  - Outras operações: projeção, homomorfismo
-- **Exemplo:**
-  - Dado um AFN, construa o autômato para a linguagem reversa.
-- **Exercício sugerido:**
-  - Construa o AFN para a reversa de uma linguagem simples.
-
----
-
 ## Dicas de Estudo e Autoavaliação
 
 - Sempre desenhe os diagramas dos autômatos para cada operação.
 - Teste exemplos práticos: crie palavras e verifique se o autômato resultante aceita ou rejeita corretamente.
 - Explique para si mesmo cada passo da construção.
 - Ao final de cada semana, tente criar um exercício próprio e resolvê-lo.
-
-Se quiser, posso detalhar cada módulo, propor exercícios práticos ou corrigir suas soluções! Basta pedir.
